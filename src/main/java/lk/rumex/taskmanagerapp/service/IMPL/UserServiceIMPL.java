@@ -8,6 +8,7 @@ import lk.rumex.taskmanagerapp.exception.ResourceNotFoundException;
 import lk.rumex.taskmanagerapp.repository.UserRepository;
 import lk.rumex.taskmanagerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,5 +54,12 @@ public class UserServiceIMPL implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         userRepository.delete(user);
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return username ->
+                userRepository.findByUsername(username).
+                        orElseThrow(()->new ResourceNotFoundException("User Not Found"));
     }
 }

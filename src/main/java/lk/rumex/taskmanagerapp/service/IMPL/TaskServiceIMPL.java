@@ -1,7 +1,5 @@
 package lk.rumex.taskmanagerapp.service.IMPL;
 
-import lk.rumex.taskmanagerapp.Enum.Priority;
-import lk.rumex.taskmanagerapp.Enum.Status;
 import lk.rumex.taskmanagerapp.conversion.ConversionData;
 import lk.rumex.taskmanagerapp.dto.TaskCreateDTO;
 import lk.rumex.taskmanagerapp.dto.TaskDTO;
