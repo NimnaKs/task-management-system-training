@@ -1,7 +1,10 @@
 package lk.rumex.taskmanagerapp.conversion;
 
+import lk.rumex.taskmanagerapp.dto.TaskCreateDTO;
+import lk.rumex.taskmanagerapp.dto.TaskDTO;
 import lk.rumex.taskmanagerapp.dto.UserCreateDTO;
 import lk.rumex.taskmanagerapp.dto.UserDTO;
+import lk.rumex.taskmanagerapp.entity.Task;
 import lk.rumex.taskmanagerapp.entity.User;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,5 +31,21 @@ public class ConversionData {
 
     public List<User> getUserEntityList(List<UserCreateDTO> userCreateDTOS){
         return modelMapper.map(userCreateDTOS,List.class);
+    }
+
+    public Task convertToTaskEntity(Optional<TaskCreateDTO> taskCreateDTO){
+        return modelMapper.map(taskCreateDTO, Task.class);
+    }
+
+    public TaskDTO convertToTaskDTO(Optional<Task> task){
+        return modelMapper.map(task,TaskDTO.class);
+    }
+
+    public List<TaskDTO> getTaskDTOList(List<Task> tasks){
+        return modelMapper.map(tasks,List.class);
+    }
+
+    public List<Task> getTaskEntityList(List<TaskCreateDTO> taskCreateDTOS){
+        return modelMapper.map(taskCreateDTOS,List.class);
     }
 }

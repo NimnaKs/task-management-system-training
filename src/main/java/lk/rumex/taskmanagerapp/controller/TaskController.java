@@ -1,12 +1,20 @@
 package lk.rumex.taskmanagerapp.controller;
+
 import jakarta.validation.Valid;
+import lk.rumex.taskmanagerapp.Enum.Priority;
+import lk.rumex.taskmanagerapp.Enum.Status;
 import lk.rumex.taskmanagerapp.dto.TaskCreateDTO;
 import lk.rumex.taskmanagerapp.dto.TaskDTO;
 import lk.rumex.taskmanagerapp.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -20,15 +28,5 @@ public class TaskController {
         TaskDTO createdTask = taskService.createTask(taskCreateDTO);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
-
-
-    @PostMapping("/{taskId}/assign/{userId}")
-    public ResponseEntity<TaskDTO> assignTask(@PathVariable Long taskId, @PathVariable Long userId) {
-        TaskDTO task = taskService.assignTask(taskId, userId);
-        return ResponseEntity.ok(task);
-    }
-
-
-
 
 }
