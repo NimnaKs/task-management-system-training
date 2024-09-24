@@ -9,6 +9,7 @@ import lk.rumex.taskmanagerapp.repository.UserRepository;
 import lk.rumex.taskmanagerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +20,13 @@ import java.util.Optional;
 public class UserServiceIMPL implements UserService {
     private final UserRepository userRepository;
     private final ConversionData conversionData;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO createUser(UserCreateDTO userCreateDTO) {
-        User savedUser = userRepository.save(conversionData.convertToUserEntity(Optional.ofNullable(userCreateDTO)));
+        User user = conversionData.convertToUserEntity(Optional.ofNullable(userCreateDTO));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.save(user);
         return conversionData.convertToUserDTO(Optional.of(savedUser));
     }
 
@@ -54,12 +58,5 @@ public class UserServiceIMPL implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         userRepository.delete(user);
-    }
-
-    @Override
-    public UserDetailsService userDetailsService() {
-        return username ->
-                userRepository.findByUsername(username).
-                        orElseThrow(()->new ResourceNotFoundException("User Not Found"));
     }
 }

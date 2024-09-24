@@ -8,6 +8,9 @@ import lk.rumex.taskmanagerapp.secureAndResponse.secure.SignIn;
 import lk.rumex.taskmanagerapp.service.AuthenticationService;
 import lk.rumex.taskmanagerapp.service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +21,13 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
 
     private final UserRepository userDao;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public JwtAuthResponse signIn(SignIn signIn) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signIn.getUsername(),signIn.getPassword())
+        );
         User user = userDao.findByUsername(signIn.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         var generateToken = jwtService.generateToken(user);

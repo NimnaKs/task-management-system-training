@@ -21,4 +21,7 @@ public class UserCreateDTO {
 
     @NotNull(message = "Role cannot be null")
     private Role role;
+
+    @NotNull(message = "Password cannot be null")
+    private String password;
 }

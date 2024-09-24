@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SignIn {
     private String username;
+    private String password;
 }
