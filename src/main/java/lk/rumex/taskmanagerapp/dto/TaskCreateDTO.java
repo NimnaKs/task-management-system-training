@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lk.rumex.taskmanagerapp.Enum.Priority;
 import lk.rumex.taskmanagerapp.Enum.Status;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TaskCreateDTO {
     @NotEmpty(message = "Title cannot be empty")
     private String title;

@@ -48,4 +48,8 @@ public class ConversionData {
     public List<Task> getTaskEntityList(List<TaskCreateDTO> taskCreateDTOS){
         return modelMapper.map(taskCreateDTOS,List.class);
     }
+
+    public TaskDTO convertToDTO(Task task) {
+        return modelMapper.map(task, TaskDTO.class);
+    }
 }
