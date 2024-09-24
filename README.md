@@ -54,6 +54,7 @@ For detailed API endpoints, please refer to the [Postman Collection](https://www
 - **username**: String
 - **email**: String
 - **role**: Enum (admin, user)
+- **password**: String
 
 ## Features
 
@@ -104,7 +105,7 @@ For detailed API endpoints, please refer to the [Postman Collection](https://www
    ./mvnw spring-boot:run
    ```
 
-2. Access the API at `http://localhost:8080`.
+2. Access the API at `http://localhost:9090`.
 
 ## Extras
 
